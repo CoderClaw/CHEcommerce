@@ -1,0 +1,26 @@
+h1{
+    color: red;
+}
+
+.prodCard{
+    border: 1px solid black;
+    border-radius: 25px;
+    padding: 10px;
+}
+.prodContainer{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    
+}
+
+.pagination{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination p{
+    margin: 3rem;
+}
