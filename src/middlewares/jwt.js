@@ -1,10 +1,10 @@
 import jwt from 'jsonwebtoken';
 
-const PRIVATE_KEY = "privateKey"
+
 
 export const generateToken = (user) =>{
 
-    const token = jwt.sign({user}, PRIVATE_KEY, {expiresIn:"24h"})
+    const token = jwt.sign({user}, process.env.PRIVATE_KEY, {expiresIn:"24h"})
     return token
 }
 

@@ -1,6 +1,7 @@
 import express from "express";
 import { __dirname } from "./pathfile.js";
 import handlebars from 'express-handlebars';
+import 'dotenv/config';
 
 //import db
 import mongoose from "mongoose";
@@ -18,7 +19,7 @@ const httpServer = app.listen(PORT, err =>{
 })
 
 try{
-    mongoose.connect('mongodb+srv://coderhouseProject:noh5tzDPkuzeGwa8@cluster0.nqgyiqu.mongodb.net/ecommerce')
+    mongoose.connect(process.env.MONGODB_URI)
     console.log("db conectada")
 }catch(error){
     console.log(error)
