@@ -1,15 +1,19 @@
 
-import { prodModel } from "../dao/models/Product.model.js";
+import { prodModel } from "./models/Product.model.js";
+import Dao from "./dao.js";
 
 export default class ProductManagerMongo{   
 
-    constructor(){}
+    constructor(){
+        this.model = prodModel;
+        this.dao = new Dao(this.model);
+    }
 
     async addProduct(body){
         
         const {title,description,code,price,status,stock,category,thumbnails} = body;
 
-        const response = await prodModel.create({title,description,code,price,status:true,stock,category,thumbnails:"thumbnail"});
+        const response = await this.dao.create({title,description,code,price,status:true,stock,category,thumbnails:"thumbnail"});
 
         return response;
     }
@@ -19,12 +23,12 @@ export default class ProductManagerMongo{
         let products = [];
     
         if(query.limit){
-            products = await prodModel.find().limit(parseInt(query.limit));
+            products = await this.dao.getAll().limit(parseInt(query.limit));
         }else if(query.sort){
             if(query.sort === "asc"){
-                products = await prodModel.find().sort({price: 1});
+                products = await this.dao.getAll().sort({price: 1});
             }else{
-                products = await prodModel.find().sort({price: -1});
+                products = await this.dao.getAll().sort({price: -1});
             }        
         }else if(query.page){
             products = await prodModel.paginate({},{limit:5,page:query.page});
@@ -46,14 +50,14 @@ export default class ProductManagerMongo{
 
     async getProductById(pid){
         
-        const product = await prodModel.findOne({_id: pid});
+        const product = await this.dao.get({_id: pid});
         return product;
         
     }
 
     async updateProduct(id,obj){
         
-        const response = await prodModel.findOneAndUpdate({_id: id},obj);
+        const response = await this.dao.update({_id: id},obj);
         
         return response;
 
@@ -61,7 +65,7 @@ export default class ProductManagerMongo{
 
     async deleteProduct(id){
         
-        const response = await prodModel.deleteOne({_id:id});
+        const response = await this.dao.delete({_id:id});
         
         return response;
 

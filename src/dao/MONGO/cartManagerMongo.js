@@ -1,5 +1,5 @@
-import { cartModel } from "../dao/models/Cart.model.js";
-import { productService } from "../service/index.js";
+import { cartModel } from "./models/Cart.model.js";
+import { productService } from "../../service/index.js";
 
 export default class CartManagerMongo{
     constructor(){

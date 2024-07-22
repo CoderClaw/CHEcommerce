@@ -2,6 +2,7 @@ import express from "express";
 import { __dirname } from "./pathfile.js";
 import handlebars from 'express-handlebars';
 import 'dotenv/config';
+import { MongoSingleton } from "./utils/MongoSingleton.js";
 
 //import db
 import mongoose from "mongoose";
@@ -18,9 +19,10 @@ const httpServer = app.listen(PORT, err =>{
     console.log("escuchando en el puerto " + PORT)
 })
 
+//CONEXION A la DB
+
 try{
-    mongoose.connect(process.env.MONGODB_URI)
-    console.log("db conectada")
+    MongoSingleton.getInstance();
 }catch(error){
     console.log(error)
 }
